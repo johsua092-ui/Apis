@@ -1,6 +1,13 @@
 # Claude API Wrapper
 
-API wrapper untuk Claude dengan sistem API key custom.
+Full-stack API wrapper for Claude with dashboard UI.
+
+## Tech Stack
+
+- Next.js + React
+- Tailwind CSS
+- Firebase (Firestore)
+- Vercel deployment
 
 ## Setup
 
@@ -9,24 +16,40 @@ npm install
 cp .env.example .env
 ```
 
-Edit `.env`:
+Configure `.env`:
 ```
 CLAUDE_API_KEY=sk-ant-xxx
-API_KEYS=sk-custom1,sk-custom2
-PORT=3000
+ADMIN_KEY=your-admin-key
+FIREBASE_PROJECT_ID=xxx
+FIREBASE_CLIENT_EMAIL=xxx@xxx.iam.gserviceaccount.com
+FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----..."
 ```
 
-## Run
+## Firebase Setup
+
+1. Create Firestore database
+2. Create collection: `api_keys`
+3. Get service account credentials
+
+## Development
 
 ```bash
-npm start
+npm run dev
 ```
+
+## Deploy to Vercel
+
+```bash
+vercel --prod
+```
+
+Add environment variables in Vercel dashboard.
 
 ## Usage
 
 ```bash
-curl -X POST http://localhost:3000/v1/messages \
-  -H "Authorization: Bearer sk-custom1" \
+curl -X POST https://your-domain.vercel.app/api/chat \
+  -H "Authorization: Bearer sk-xxxxx" \
   -H "Content-Type: application/json" \
   -d '{
     "model": "claude-sonnet-4",
@@ -35,7 +58,6 @@ curl -X POST http://localhost:3000/v1/messages \
   }'
 ```
 
-## Endpoints
+## Dashboard
 
-- `POST /v1/messages` - Standard response
-- `POST /v1/messages/stream` - Streaming response
+Access `/` to manage API keys with admin key.
